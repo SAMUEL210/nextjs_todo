@@ -44,3 +44,26 @@ export async function POST( request: NextRequest){
         return NextResponse.json({message: "Une erreur innattendu s'est produit"}, {status: 500});
     }
 }
+
+export async function DELETE(request: NextRequest){
+    try{
+        const id = request.nextUrl.searchParams.get('id');
+        if(!id){
+            return NextResponse.json({message: "Id de la tâche est requise!"}, {status: 400});
+        }
+
+        const deleteTodo = await prisma.todo.delete({
+            where: {id},
+        });
+
+        if(!deleteTodo){
+            return NextResponse.json({message: "Tâche non trouvé"}, {status: 404});
+        }
+
+        return NextResponse.json({message: "Tâche supprimé avec succès"}, {status: 200});
+
+    }catch(error){
+        console.error("Erreur lors de la suppression de la tâche : ", error);
+        return NextResponse.json({message: "Une erreur inattendu s'est produite"}, {status: 500});
+    }
+}
