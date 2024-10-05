@@ -22,6 +22,8 @@ import { useState } from "react";
 
 import { mutate } from "swr";
 
+import TodoForm from "./todo-form";
+
 export default function CreateTodo() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -88,69 +90,15 @@ export default function CreateTodo() {
                         {errorMessage}
                     </div>
                 )}
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                        <FormField
-                            name="title"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Titre</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            name="description"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Description</FormLabel>
-                                    <FormControl>
-                                        <Textarea className="resize-none"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="isCompleted"
-                            render={({ field }) => (
-                                <FormItem className="flex flex-rows items-start space-x-3 space-y-0">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={field.onChange}
-                                        />
-                                    </FormControl>
-                                    <div className="space-y-1 leading-none">
-                                        <FormLabel>Marquer comme fait!</FormLabel>
-                                    </div>
-                                </FormItem>
-                            )}
-                        />
-                        <Button
-                            disabled={isSubmitting}
-                            className="w-full relative"
-                            type="submit"
-
-                        >
-                            {isSubmitting && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-primary/50 rounded-md">
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin">
-
-                                    </div>
-
-                                </div>
-                            )}
-                            Creer
-                        </Button>
-                    </form>
-                </Form>
+                <TodoForm
+                    defaultValues={{
+                        title: "",
+                        description: "",
+                        isCompleted: false,
+                    }}
+                    onSubmit={onSubmit}
+                    submitButtonText="Create"
+                    isSubmitting={isSubmitting} />
             </DialogContent>
 
         </Dialog>
