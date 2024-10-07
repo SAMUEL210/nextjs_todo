@@ -32,7 +32,7 @@ export default function TodoList() {
                 <Card>
                     <CardContent className="text-center px-10">
                         <p className="text-muted-foreground">
-                            All done for today!
+                            Toutes les taches ont été faites!
                         </p>
                     </CardContent>
                 </Card>
