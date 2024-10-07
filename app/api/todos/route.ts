@@ -2,6 +2,8 @@ import prisma from '@/lib/prisma';
 
 import { todoSchema } from '@/lib/zod';
 
+import { Todo } from '@prisma/client';
+
 import { NextRequest, NextResponse } from 'next/server';
 
 
@@ -66,4 +68,41 @@ export async function DELETE(request: NextRequest){
         console.error("Erreur lors de la suppression de la tâche : ", error);
         return NextResponse.json({message: "Une erreur inattendu s'est produite"}, {status: 500});
     }
+}
+
+export async function PUT(request: NextRequest) {
+    try{
+        const body =await request.json();
+        const {id, ...rest} = body;
+
+        const result = todoSchema.safeParse(rest);
+
+        if(!result.success){
+            return NextResponse.json({message: "Champs invalide", errors: result.error.errors}, {status: 400});
+        }
+
+        const todoData = result.data as Todo;
+
+        if(!id){
+            return NextResponse.json({message: "L'id de la tache est requis"}, {status: 404})
+        }
+
+        const updateTodo = await prisma.todo.update({
+            where: {id},
+            data: {
+                title: todoData.title,
+                description: todoData.description,
+                isCompleted: todoData.isCompleted,
+            }
+        })
+        if(!updateTodo){
+            return NextResponse.json({message: "Tâche non trouvé"}, {status: 404});
+        }
+
+        return  NextResponse.json(updateTodo, {status: 200});
+    
+    }catch(error){
+        console.error("Erreur lors de la modification de la tâche : ", error);
+        return NextResponse.json({message: "Une erreur inattendu s'est produite"}, {status: 500});
+    }  
 }

@@ -7,6 +7,7 @@ import { Todo } from "@prisma/client";
 import useSWR from 'swr';
 
 import DeleteTodo from "./delete-todo";
+import UpdateTodo from "./update-todo";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -39,6 +40,7 @@ export default function TodoList() {
                 todosList.map((todo) => (
                     <Card className="group relative" key={todo.id}>
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <UpdateTodo todo={todo} />
                             <DeleteTodo id={todo.id} />
                         </div>
                         <CardHeader>

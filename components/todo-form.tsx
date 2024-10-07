@@ -93,7 +93,7 @@ export default function TodoForm({
 
                         </div>
                     )}
-                    Creer
+                    Valider
                 </Button>
             </form>
         </Form>
