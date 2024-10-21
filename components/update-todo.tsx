@@ -85,7 +85,7 @@ export default function UpdateTodo({ todo }: { todo: Todo }) {
                         isCompleted: todo.isCompleted,
                     }}
                     onSubmit={onSubmit}
-                    submitButtonText="Create"
+                    submitButtonText="Modifier"
                     isSubmitting={isSubmitting} />
             </DialogContent>
 

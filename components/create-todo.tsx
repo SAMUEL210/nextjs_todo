@@ -4,14 +4,6 @@ import { Button } from "@/components/ui/button";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
-import { Textarea } from "./ui/textarea";
-
-import { Checkbox } from "@/components/ui/checkbox";
-
-import { Input } from "@/components/ui/input";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
@@ -97,7 +89,7 @@ export default function CreateTodo() {
                         isCompleted: false,
                     }}
                     onSubmit={onSubmit}
-                    submitButtonText="Create"
+                    submitButtonText="Créer"
                     isSubmitting={isSubmitting} />
             </DialogContent>
 

@@ -93,7 +93,7 @@ export default function TodoForm({
 
                         </div>
                     )}
-                    Valider
+                    {submitButtonText}
                 </Button>
             </form>
         </Form>
