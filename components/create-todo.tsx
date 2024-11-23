@@ -71,7 +71,7 @@ export default function CreateTodo() {
     return (
         <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-                <Button className="m-2"> Nouvelle Tâche</Button>
+                <Button>Nouvelle Tâche</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w[425px] bg-white">
                 <DialogHeader>

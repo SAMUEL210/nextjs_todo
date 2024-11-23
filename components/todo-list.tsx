@@ -10,8 +10,11 @@ import DeleteTodo from "./delete-todo";
 import UpdateTodo from "./update-todo";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
+interface TodoListProps {
+    todoState: string
+}
 
-export default function TodoList() {
+export default function TodoList({ todoState }: TodoListProps) {
     const { data: todos, error, isLoading } = useSWR<Todo[]>("/api/todos", fetcher);
 
     if (isLoading) return (
@@ -25,7 +28,13 @@ export default function TodoList() {
 
     if (error) return <div>Echec lors du chargement des tâches</div>
 
-    const todosList = todos || [];
+    let todosList = todos || [];
+    if (todoState == "undone") {
+        todosList = todosList.filter((todo) => todo.isCompleted == false);
+    }
+    if (todoState == "done") {
+        todosList = todosList.filter((todo) => todo.isCompleted == true)
+    }
     return (
         <div className="space-y-4">
             {todosList.length === 0 ? (
