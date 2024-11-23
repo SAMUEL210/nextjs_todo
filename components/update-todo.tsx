@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
-import { todoSchema, type TodoSchema } from "@/lib/zod";
+import { type TodoSchema } from "@/lib/zod";
 
 import { useState } from "react";
 
