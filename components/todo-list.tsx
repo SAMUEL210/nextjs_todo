@@ -39,11 +39,18 @@ export default function TodoList({ todoState }: TodoListProps) {
         <div className="space-y-4">
             {todosList.length === 0 ? (
                 <Card>
-                    <CardContent className="text-center px-10">
-                        <p className="text-muted-foreground">
-                            Toutes les taches ont été faites!
-                        </p>
-                    </CardContent>
+                    {(todoState == "undone" ? (
+                        <CardContent className="text-center px-10">
+                            <p className="text-muted-foreground">
+                                Aunce tâche n&apos;a été ajoutée !
+                            </p>
+                        </CardContent>) :
+                        <CardContent className="text-center px-10">
+                            <p className="text-muted-foreground">
+                                Aucune tâche n&apos;a été accomplie !
+                            </p>
+                        </CardContent>)
+                    }
                 </Card>
             ) : (
                 todosList.map((todo) => (
