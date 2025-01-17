@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import { ClerkProvider, SignedIn, UserButton } from '@clerk/nextjs'
+import { frFR } from '@clerk/localizations'
+import Image from "next/image"
+
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -18,18 +22,37 @@ export const metadata: Metadata = {
   description: "Mes taches au quotidiens",
 };
 
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="fr">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
+    <ClerkProvider localization={frFR}>
+      <html lang="fr">
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <header className="bg-white shadow-lg">
+            <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+              <div className="flex lg:flex-1">
+                <a href="#" className="-m-2 p-1.5 flex flex-row gap-2 items-center">
+                  <span className="sr-only">Tâches SM</span>
+                  <Image
+                    src="/favicon.ico"
+                    width={50}
+                    height={50}
+                    alt="Tâche SM"
+                  />
+                </a>
+              </div>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </nav>
+          </header>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider >
+  )
 }
