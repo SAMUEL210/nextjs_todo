@@ -1,9 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-
 import { TrashIcon } from "lucide-react";
-
 import { mutate } from "swr";
 
 export default function DeleteTodo({ id }: { id: string }) {
@@ -14,7 +12,6 @@ export default function DeleteTodo({ id }: { id: string }) {
         });
 
         if (response.ok) {
-            console.log("La tâche a été supprimé!");
             mutate("/api/todos");
         } else {
             console.error('Echec lors de la suppression');

@@ -1,23 +1,15 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { useForm } from "react-hook-form";
-
 import { todoSchema, type TodoSchema } from "@/lib/zod";
-
 import { useState } from "react";
-
 import { mutate } from "swr";
-
 import TodoForm from "./todo-form";
 
-export default function CreateTodo() {
-
+export default function CreateTodo({ userId }: { userId: string }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isDialogOpen, setDialogOpen] = useState(false);
@@ -28,6 +20,7 @@ export default function CreateTodo() {
             title: "",
             description: "",
             isCompleted: false,
+            userId: userId
         }
     })
 
@@ -76,6 +69,9 @@ export default function CreateTodo() {
             <DialogContent className="sm:max-w[425px] bg-white">
                 <DialogHeader>
                     <DialogTitle>Créer une nouvelle tâche</DialogTitle>
+                    <DialogDescription>
+                        Veuillez remplir les champs pour ajouter une taches
+                    </DialogDescription>
                 </DialogHeader>
                 {errorMessage && (
                     <div className="text-red-500 text-sm mb-4">
@@ -87,6 +83,7 @@ export default function CreateTodo() {
                         title: "",
                         description: "",
                         isCompleted: false,
+                        userId: userId
                     }}
                     onSubmit={onSubmit}
                     submitButtonText="Créer"

@@ -1,19 +1,12 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { type TodoSchema } from "@/lib/zod";
-
 import { useState } from "react";
-
 import { mutate } from "swr";
-
 import TodoForm from "./todo-form";
-
 import { PencilIcon } from "lucide-react";
-
 import { Todo } from "@prisma/client";
 
 export default function UpdateTodo({ todo }: { todo: Todo }) {
@@ -66,12 +59,14 @@ export default function UpdateTodo({ todo }: { todo: Todo }) {
                     className="mr-1 text-blue-500 bg-blue-100 hover:text-700 hover:bg-blue-200"
                 >
                     <PencilIcon className=" h-4 w-4" />
-
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w[425px] bg-white">
                 <DialogHeader>
-                    <DialogTitle>Modifier la tache</DialogTitle>
+                    <DialogTitle className="mx-auto">Modifier la tache</DialogTitle>
+                    <DialogDescription>
+                        Veuillez Modifier les valeur des champs pour modifier la taches
+                    </DialogDescription>
                 </DialogHeader>
                 {errorMessage && (
                     <div className="text-red-500 text-sm mb-4">
@@ -83,6 +78,7 @@ export default function UpdateTodo({ todo }: { todo: Todo }) {
                         title: todo.title,
                         description: todo.description,
                         isCompleted: todo.isCompleted,
+                        userId: todo.userId
                     }}
                     onSubmit={onSubmit}
                     submitButtonText="Modifier"
