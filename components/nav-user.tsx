@@ -33,7 +33,7 @@ export default function NavUser({ user }: {
             </DropdownMenuTrigger>
             <DropdownMenuContent
                 className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                side={"right"}
+                side={"bottom"}
                 align="end"
                 sideOffset={4}
             >

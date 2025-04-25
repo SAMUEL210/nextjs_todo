@@ -25,7 +25,10 @@ export default function Home() {
   return (
     <div className="max-w-7x1 flex-col gap-10 mx-auto p-10">
       <div className="flex justify-between items-center">
-        <CreateTodo />
+        {(isPending == false && session != null) &&
+          <CreateTodo userId={session.user.id} />
+        }
+
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>{
         (states) &&
