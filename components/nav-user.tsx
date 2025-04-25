@@ -1,18 +1,9 @@
 "use client"
-import {
-    BellIcon,
-    CreditCardIcon,
-    LogOutIcon,
-    MoreVerticalIcon,
-    UserCircleIcon,
-} from "lucide-react"
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-} from "@/components/ui/avatar"
+import { LogOutIcon, MoreVerticalIcon, UserCircleIcon } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Button } from "./ui/button"
+import { Button } from "./ui/button";
+import { authClient } from "@/lib/auth-client"
 
 export default function NavUser({ user }: {
     user: {
@@ -29,7 +20,7 @@ export default function NavUser({ user }: {
                 >
                     <Avatar className="h-8 w-8 rounded-lg grayscale">
                         <AvatarImage src={user.avatar} alt={user.name} />
-                        <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                        <AvatarFallback className="rounded-lg">{user.name.split(' ')[0].charAt(0).toLocaleUpperCase() + user.name.split(' ')[1].charAt(0).toLocaleUpperCase()}</AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                         <span className="truncate font-medium">{user.name}</span>
@@ -50,7 +41,7 @@ export default function NavUser({ user }: {
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                         <Avatar className="h-8 w-8 rounded-lg">
                             <AvatarImage src={user.avatar} alt={user.name} />
-                            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                            <AvatarFallback className="rounded-lg">{user.name.split(' ')[0].charAt(0).toLocaleUpperCase() + user.name.split(' ')[1].charAt(0).toLocaleUpperCase()}</AvatarFallback>
                         </Avatar>
                         <div className="grid flex-1 text-left text-sm leading-tight">
                             <span className="truncate font-medium">{user.name}</span>
@@ -66,19 +57,13 @@ export default function NavUser({ user }: {
                         <UserCircleIcon />
                         Account
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <CreditCardIcon />
-                        Billing
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <BellIcon />
-                        Notifications
-                    </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={async () => {
+                    await authClient.signOut();
+                }}>
                     <LogOutIcon />
-                    Log out
+                    Se déconnecter
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
