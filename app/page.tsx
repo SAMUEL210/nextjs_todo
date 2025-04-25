@@ -1,5 +1,9 @@
+'use client'
+
 import CreateTodo from '@/components/create-todo';
 import TodoList from '@/components/todo-list';
+import { authClient } from "@/lib/auth-client" // import the auth client
+import { redirect } from 'next/navigation';
 
 const states = [
   {
@@ -13,6 +17,11 @@ const states = [
 ];
 
 export default function Home() {
+  const { data: session, isPending } = authClient.useSession()
+  if (isPending == false && session == null) {
+    redirect('/login')
+  }
+
   return (
     <div className="max-w-7x1 flex-col gap-10 mx-auto p-10">
       <div className="flex justify-between items-center">
