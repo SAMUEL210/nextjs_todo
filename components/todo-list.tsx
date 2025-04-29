@@ -5,8 +5,7 @@ import { Todo } from "@prisma/client";
 import useSWR from 'swr';
 import DeleteTodo from "./delete-todo";
 import UpdateTodo from "./update-todo";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Skeleton } from "./ui/skeleton";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 interface TodoListProps {
@@ -53,7 +52,6 @@ export default function TodoList({ todoState }: TodoListProps) {
                 </Card>
             ) : (
                 <Accordion type="single" collapsible className="w-full">
-                    <Skeleton className="h-12 w-12 rounded-full" />
                     {
                         todosList.map((todo) => (
                             <div key={todo.id} className="max-w-full flex flex-row gap-2 items-center">
