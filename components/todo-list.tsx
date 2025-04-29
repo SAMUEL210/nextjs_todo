@@ -1,13 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
+import { Card, CardContent } from "@/components/ui/card";
 import { Todo } from "@prisma/client";
-
 import useSWR from 'swr';
-
 import DeleteTodo from "./delete-todo";
 import UpdateTodo from "./update-todo";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Skeleton } from "./ui/skeleton";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 interface TodoListProps {
@@ -53,26 +52,26 @@ export default function TodoList({ todoState }: TodoListProps) {
                     }
                 </Card>
             ) : (
-                todosList.map((todo) => (
-                    <Card className="group relative" key={todo.id}>
-                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <UpdateTodo todo={todo} />
-                            <DeleteTodo id={todo.id} />
-                        </div>
-                        <CardHeader>
-                            <CardTitle>
-                                <span className={todo.isCompleted ? "line-through" : ""}>
-                                    {todo.title}
-                                </span>
-                            </CardTitle>
-                        </CardHeader>
-                        {todo.description && (
-                            <CardContent>
-                                <p>{todo.description}</p>
-                            </CardContent>
-                        )}
-                    </Card>
-                ))
+                <Accordion type="single" collapsible className="w-full">
+                    <Skeleton className="h-12 w-12 rounded-full" />
+                    {
+                        todosList.map((todo) => (
+                            <div key={todo.id} className="max-w-full flex flex-row gap-2 items-center">
+                                <div>
+                                    <UpdateTodo todo={todo} />
+                                    <DeleteTodo id={todo.id} />
+                                </div>
+                                <AccordionItem value={todo.id} className="w-4/5">
+                                    <AccordionTrigger className="font-bold text-lg">{todo.title}</AccordionTrigger>
+                                    <AccordionContent className="italic">
+                                        {todo.description}
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </div>
+
+                        ))
+                    }
+                </Accordion>
             )}
         </div>
     )
