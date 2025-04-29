@@ -7,4 +7,12 @@ export const todoSchema = z.object({
     userId: z.string()
 })
 
+export const loginSchema = z.object({
+    email: z.string().email({ message: 'Identifiants incorrects' }),
+    password: z
+        .string()
+        .min(6, { message: 'Identifiants incorrects' })
+        .regex(/[a-zA-Z0-9]/, { message: 'Identifiants incorrects' }),
+})
+
 export type TodoSchema = z.infer<typeof todoSchema>;
