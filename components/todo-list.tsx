@@ -6,6 +6,9 @@ import useSWR from 'swr';
 import DeleteTodo from "./delete-todo";
 import UpdateTodo from "./update-todo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 interface TodoListProps {
@@ -34,43 +37,55 @@ export default function TodoList({ todoState }: TodoListProps) {
         todosList = todosList.filter((todo) => todo.isCompleted == true)
     }
     return (
-        <div className="space-y-4">
-            {todosList.length === 0 ? (
-                <Card>
-                    {(todoState == "undone" ? (
-                        <CardContent className="text-center px-10">
-                            <p className="text-muted-foreground">
-                                Aunce tâche n&apos;a été ajoutée !
-                            </p>
-                        </CardContent>) :
-                        <CardContent className="text-center px-10">
-                            <p className="text-muted-foreground">
-                                Aucune tâche n&apos;a été accomplie !
-                            </p>
-                        </CardContent>)
-                    }
-                </Card>
-            ) : (
-                <Accordion type="single" collapsible className="w-full">
-                    {
-                        todosList.map((todo) => (
-                            <div key={todo.id} className="max-w-full flex flex-row gap-2 items-center">
-                                <div>
-                                    <UpdateTodo todo={todo} />
-                                    <DeleteTodo id={todo.id} />
-                                </div>
-                                <AccordionItem value={todo.id} className="w-4/5">
-                                    <AccordionTrigger className="font-bold text-lg">{todo.title}</AccordionTrigger>
-                                    <AccordionContent className="italic">
-                                        {todo.description}
-                                    </AccordionContent>
-                                </AccordionItem>
-                            </div>
+        <>
+            <Tabs defaultValue="account" className="w-[400px]">
+                <TabsList>
+                    <TabsTrigger value="undone">Account</TabsTrigger>
+                    <TabsTrigger value="done">Password</TabsTrigger>
+                </TabsList>
+                <TabsContent value="undone">Make changes to your account here.</TabsContent>
+                <TabsContent value="done">Change your password here.</TabsContent>
+            </Tabs>
 
-                        ))
-                    }
-                </Accordion>
-            )}
-        </div>
+            <div className="space-y-4">
+                {todosList.length === 0 ? (
+                    <Card>
+                        {(todoState == "undone" ? (
+                            <CardContent className="text-center px-10">
+                                <p className="text-muted-foreground">
+                                    Aunce tâche n&apos;a été ajoutée !
+                                </p>
+                            </CardContent>) :
+                            <CardContent className="text-center px-10">
+                                <p className="text-muted-foreground">
+                                    Aucune tâche n&apos;a été accomplie !
+                                </p>
+                            </CardContent>)
+                        }
+                    </Card>
+                ) : (
+                    <Accordion type="single" collapsible className="w-full">
+                        {
+                            todosList.map((todo) => (
+                                <div key={todo.id} className="max-w-full flex flex-row gap-2 items-center">
+                                    <div>
+                                        <UpdateTodo todo={todo} />
+                                        <DeleteTodo id={todo.id} />
+                                    </div>
+                                    <AccordionItem value={todo.id} className="w-4/5 shadow-lg px-2 rounded-sm">
+                                        <AccordionTrigger className="font-bold text-lg">{todo.title}</AccordionTrigger>
+                                        <AccordionContent className="italic">
+                                            {todo.description}
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </div>
+
+                            ))
+                        }
+                    </Accordion>
+                )}
+            </div>
+        </>
+
     )
 }
