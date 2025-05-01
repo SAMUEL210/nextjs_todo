@@ -57,10 +57,12 @@ export default function TodoList({ todoState }: TodoListProps) {
                 <Accordion type="single" collapsible className="w-full">
                     {
                         todosList.map((todo) => (
-                            <div key={todo.id} className="max-w-full flex flex-row gap-2 items-center">
+                            <div key={todo.id} className="max-w-full flex flex-row gap-2 items-center justify-center">
                                 <div>
                                     <UpdateTodo todo={todo} />
-                                    <DeleteTodo id={todo.id} />
+                                    {(todo.isCompleted != true) &&
+                                        <DeleteTodo id={todo.id} />
+                                    }
                                 </div>
                                 <AccordionItem value={todo.id} className="w-4/5 shadow-lg px-2 rounded-sm">
                                     <AccordionTrigger className={todo.isCompleted ? " font-bold  text-lg line-through hover:line-through" : "font-bold text-lg"}>{todo.title}</AccordionTrigger>
