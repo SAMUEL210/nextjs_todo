@@ -56,7 +56,7 @@ export default function UpdateTodo({ todo }: { todo: Todo }) {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="mr-1 text-blue-500 bg-blue-100 hover:text-700 hover:bg-blue-200"
+                    className="mr-1 text-white bg-green-800 hover:text-700 hover:bg-green-700"
                 >
                     <PencilIcon className=" h-4 w-4" />
                 </Button>

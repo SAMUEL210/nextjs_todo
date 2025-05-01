@@ -8,6 +8,7 @@ import { todoSchema, type TodoSchema } from "@/lib/zod";
 import { useState } from "react";
 import { mutate } from "swr";
 import TodoForm from "./todo-form";
+import { Plus } from "lucide-react"
 
 export default function CreateTodo({ userId }: { userId: string }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,7 +65,7 @@ export default function CreateTodo({ userId }: { userId: string }) {
     return (
         <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-                <Button>Nouvelle Tâche</Button>
+                <Button className="bg-green-800 hover:bg-green-700"><Plus />Nouvelle Tâche</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w[425px] bg-white">
                 <DialogHeader>
