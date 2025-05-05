@@ -4,17 +4,15 @@ import Link from 'next/link'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/ui/password-input'
 import { loginSchema } from '@/lib/zod'
-import { Loader2 } from 'lucide-react'
+import { Loader2, AlertTriangle } from 'lucide-react'
 import { signIn } from '@/lib/auth-client'
 import { useState } from 'react'
-
 
 export default function Login() {
     const form = useForm<z.infer<typeof loginSchema>>({
@@ -26,9 +24,13 @@ export default function Login() {
     })
 
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
     async function onSubmit(values: z.infer<typeof loginSchema>) {
         try {
+            setError(null)
+            setLoading(true)
             await signIn.email(
                 {
                     email: values.email,
@@ -36,17 +38,25 @@ export default function Login() {
                     callbackURL: "/",
                 },
                 {
-                    onRequest: () => {
-                        setLoading(true);
-                    },
-                    onResponse: () => {
-                        setLoading(false);
+                    onError: (ctx) => {
+                        console.log(ctx.error)
+                        setLoading(false)
+                        if (ctx.error.code === "INVALID_EMAIL_OR_PASSWORD") {
+                            setError(ctx.error.code)
+                            setErrorMessage(" Identifiants incorrects")
+                        } else if (ctx.error.code === "EMAIL_NOT_VERIFIED") {
+                            setError(ctx.error.code)
+                            setErrorMessage("Votre adresse mail  de compte n'est pas encore vérifié!. Veuillez vérifier votre boite mail et cliquez sur le lien de vérification de votre email!")
+                        } else {
+                            setError(ctx.error.code)
+                            setErrorMessage("Une erreur est survenue. Veuillez réessayer.")
+                        }
                     }
                 },
             );
-        } catch (error) {
-            console.error('Form submission error', error)
-            toast.error('Failed to submit the form. Please try again.')
+        } catch (err) {
+            console.error('Form submission error', err)
+            setErrorMessage("Une erreur est survenue. Veuillez réessayer.")
         }
     }
 
@@ -90,7 +100,7 @@ export default function Login() {
                                             <div className="flex justify-between items-center">
                                                 <FormLabel htmlFor="password">Mot de passe</FormLabel>
                                                 <Link
-                                                    href="#"
+                                                    href="/forgot-password"
                                                     className="ml-auto inline-block text-sm underline"
                                                 >
                                                     Mot de passe oublié?
@@ -130,6 +140,13 @@ export default function Login() {
                     </div>
                 </CardContent>
             </Card>
-        </div>
+            {error && (
+                <div className="mt-4 text-red-500 text-sm">
+                    <div className="flex flex-row items-center">
+                        <AlertTriangle /> {errorMessage}
+                    </div>
+                </div>
+            )}
+        </div >
     )
 }
