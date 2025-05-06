@@ -1,7 +1,7 @@
 import {betterAuth, User} from 'better-auth';
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import prisma from './prisma';
-import { mailer } from "./mailer";
+import prisma from '@/lib/prisma';
+import { mailer } from "@/lib/mailer";
 import { VerificationMail } from "@/lib/emails/EmailVerificationMail";
 import { ResetPasswordMail } from "@/lib/emails/resetPasswordMail";
 import { render } from '@react-email/components';

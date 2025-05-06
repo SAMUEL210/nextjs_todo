@@ -1,4 +1,6 @@
 import { createTransport } from "nodemailer";
+import { config } from "dotenv";
+config();
 
 export const mailer = createTransport({
     host: "smtp-marone.alwaysdata.net",
@@ -13,4 +15,4 @@ export const mailer = createTransport({
         keySelector: "2017",
         privateKey: process.env.PRIVATE_KEY || "",
     },
-} as import("nodemailer").TransportOptions);
+});
