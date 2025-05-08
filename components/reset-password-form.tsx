@@ -10,7 +10,7 @@ import { resetPasswordSchema } from '@/lib/zod'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { authClient } from '@/lib/auth-client'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 interface ResetPasswordFormProps {
     token: string | null;
@@ -22,6 +22,7 @@ export default function ResetPasswordForm({
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof resetPasswordSchema>>({
         resolver: zodResolver(resetPasswordSchema),
@@ -41,7 +42,7 @@ export default function ResetPasswordForm({
                         token,
                     }, {
                     onSuccess: () => {
-                        redirect("/login")
+                        router.push("/login")
                     },
                     onError: (ctx) => {
                         if (ctx.error.code == 'INVALID_TOKEN') {

@@ -1,10 +1,13 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { headers } from "next/headers";
-import ResetPasswordForm from '@/components/reset-password-form'
+'use client'
 
-export default async function ResetPassword() {
-    const headersList = await headers()
-    const token = headersList.get("token");
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import ResetPasswordForm from '@/components/reset-password-form'
+import { useSearchParams } from 'next/navigation';
+
+export default function ResetPassword() {
+
+    const searchParams = useSearchParams();
+    const token = searchParams.get('token');
 
     return (
         (token) ? (
