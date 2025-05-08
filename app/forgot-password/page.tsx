@@ -16,7 +16,6 @@ import { useRouter } from 'next/navigation'
 export default function ForgotPassword() {
     const { data: session, isPending } = authClient.useSession()
     const router = useRouter()
-
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
