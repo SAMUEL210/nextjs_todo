@@ -1,6 +1,6 @@
 import { Body, Button, Container, Head, Hr, Html, Img, Preview, Section, Text } from '@react-email/components';
 
-interface KoalaWelcomeEmailProps {
+interface VerificationMailProps {
     userFirstname: string;
     url: string;
 }
@@ -8,7 +8,7 @@ interface KoalaWelcomeEmailProps {
 export const VerificationMail = ({
     userFirstname,
     url
-}: KoalaWelcomeEmailProps) => (
+}: VerificationMailProps) => (
     <Html>
         <Head />
         <Body style={main}>
