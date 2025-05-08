@@ -1,6 +1,6 @@
 import { Body, Button, Container, Head, Hr, Html, Img, Preview, Section, Text } from '@react-email/components';
 
-interface KoalaWelcomeEmailProps {
+interface ResetPasswordMailProps {
     userFirstname: string;
     url: string;
 }
@@ -8,7 +8,7 @@ interface KoalaWelcomeEmailProps {
 export const ResetPasswordMail = ({
     userFirstname,
     url
-}: KoalaWelcomeEmailProps) => (
+}: ResetPasswordMailProps) => (
     <Html>
         <Head />
         <Body style={main}>
@@ -17,10 +17,10 @@ export const ResetPasswordMail = ({
             </Preview>
             <Container style={container}>
                 <Img
-                    src="https://react-email-demo-ev3nxxs6w-resend.vercel.app/static/koala-logo.png"
-                    width="170"
-                    height="50"
-                    alt="Koala"
+                    src="https://file.samuelmarone.fr/api/public/dl/8gPfOfMW/TachesSM/logoTaaches.png"
+                    width="70"
+                    height="70"
+                    alt="Taches SM"
                     style={logo}
                 />
                 <Text style={paragraph}>Salut {userFirstname},</Text>

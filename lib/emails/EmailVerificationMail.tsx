@@ -17,10 +17,10 @@ export const VerificationMail = ({
             </Preview>
             <Container style={container}>
                 <Img
-                    src="/img/logo.png"
-                    width="170"
-                    height="50"
-                    alt="Koala"
+                    src="https://file.samuelmarone.fr/api/public/dl/8gPfOfMW/TachesSM/logoTaaches.png"
+                    width="70"
+                    height="70"
+                    alt="Taches SM"
                     style={logo}
                 />
                 <Text style={paragraph}>Salut {userFirstname},</Text>
