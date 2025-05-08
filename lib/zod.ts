@@ -7,10 +7,24 @@ export const todoSchema = z.object({
     userId: z.string()
 })
 
+export const registrationSchema = z
+    .object({
+        firstName: z.string().min(2, { message: 'Le prénom est trop court'}),
+        lastName: z.string().min(2, { message: 'Le nom est trop court' }),
+        email: z.string().email({ message:"L'adresse email est incorrecte!" }),
+        //phone: z.string().min(10, { message: 'Le N° Téléphone doit être correcte' }),
+        password: z.string()
+            .min(8, { message: 'Le mot de passe doit faire au moin 8 caractères' })
+            .regex(/[a-zA-Z0-9]/, { message: 'Le mot de passe doit être composéde chiffre et de lettre!' }),
+        confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        path: ['confirmPassword'],
+        message: 'les mots de passe ne correspondent pas!',
+    })
 export const loginSchema = z.object({
     email: z.string().email({ message: "Veuillez saisir une adresse mail correcte svp!" }),
-    password: z
-        .string()
+    password: z.string()
 })
 
 export const forgotPassorwSchema = z.object({
@@ -19,15 +33,14 @@ export const forgotPassorwSchema = z.object({
 
 export const resetPasswordSchema = z
     .object({
-        password: z
-            .string()
-            .min(6, { message: 'Password must be at least 6 characters long' })
-            .regex(/[a-zA-Z0-9]/, { message: 'Password must be alphanumeric' }),
+        password: z.string()
+            .min(8, { message: 'Le mot de passe doit faire au moin 8 caractères' })
+            .regex(/[a-zA-Z0-9]/, { message: 'Le mot de passe doit être composéde chiffre et de lettre!' }),
         confirmPassword: z.string(),
     })
     .refine((data) => data.password === data.confirmPassword, {
         path: ['confirmPassword'],
-        message: 'Passwords do not match',
+        message: 'Les mots de passe ne correspondent pas!',
     })
 
 export type TodoSchema = z.infer<typeof todoSchema>;
