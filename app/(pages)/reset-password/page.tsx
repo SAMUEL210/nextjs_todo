@@ -3,6 +3,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import ResetPasswordForm from '@/components/reset-password-form'
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export default function ResetPassword() {
 
@@ -20,7 +22,13 @@ export default function ResetPassword() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <ResetPasswordForm token={token} />
+                        <Suspense
+                            fallback={
+                                <div className="flex items-center justify-center">
+                                    <Loader2 className="animate-spin" />
+                                </div>}>
+                            <ResetPasswordForm token={token} />
+                        </Suspense>
                     </CardContent>
                 </Card>
             </div>

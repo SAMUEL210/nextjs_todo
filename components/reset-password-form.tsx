@@ -73,7 +73,7 @@ export default function ResetPasswordForm({
                                 <FormControl>
                                     <PasswordInput
                                         id="password"
-                                        placeholder="******"
+                                        placeholder="********"
                                         autoComplete="new-password"
                                         {...field}
                                     />
@@ -93,7 +93,7 @@ export default function ResetPasswordForm({
                                 <FormControl>
                                     <PasswordInput
                                         id="confirmPassword"
-                                        placeholder="******"
+                                        placeholder="********"
                                         autoComplete="new-password"
                                         {...field}
                                     />
