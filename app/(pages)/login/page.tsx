@@ -13,7 +13,7 @@ import { loginSchema } from '@/lib/zod'
 import { Loader2, AlertTriangle } from 'lucide-react'
 import { authClient, signIn } from '@/lib/auth-client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 export default function Login() {
     const { data: session, isPending } = authClient.useSession()
@@ -26,7 +26,6 @@ export default function Login() {
         },
     })
 
-    const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -161,6 +160,6 @@ export default function Login() {
                     </div>
                 )}
             </div >
-        ) : router.push('/')
+        ) : redirect('/')
     )
 }

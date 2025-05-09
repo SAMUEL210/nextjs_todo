@@ -3,7 +3,7 @@
 import CreateTodo from '@/components/create-todo';
 import TodoList from '@/components/todo-list';
 import { authClient } from "@/lib/auth-client" // import the auth client
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { states } from '@/lib/data';
@@ -11,7 +11,7 @@ import { states } from '@/lib/data';
 export default function Home() {
 
   const { data: session, isPending } = authClient.useSession()
-  const router = useRouter()
+
 
   return (
     (isPending == false && session != null) ? (
@@ -45,6 +45,6 @@ export default function Home() {
           ))}
         </Tabs>
       </div>
-    ) : router.push('/login')
+    ) : redirect('/login')
   )
 }

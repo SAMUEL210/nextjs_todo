@@ -11,11 +11,10 @@ import { forgotPassorwSchema } from '@/lib/zod'
 import { authClient } from '@/lib/auth-client'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 export default function ForgotPassword() {
     const { data: session, isPending } = authClient.useSession()
-    const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
@@ -127,6 +126,6 @@ export default function ForgotPassword() {
                     </Card>
                 </div>
             )
-        ) : router.push('/')
+        ) : redirect('/')
     )
 }

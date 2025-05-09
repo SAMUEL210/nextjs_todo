@@ -11,11 +11,11 @@ import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/ui/password-input'
 //import { PhoneInput } from '@/components/ui/phone-input'
 import { registrationSchema } from "@/lib/zod";
-import { Loader2, X, AlertTriangle } from "lucide-react";
-import { authClient, signUp } from "@/lib/auth-client";
+import { Loader2, X, AlertTriangle } from "lucide-react"
+import { authClient, signUp } from "@/lib/auth-client"
 import { useState } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 export default function Register() {
     const { data: session, isPending } = authClient.useSession()
@@ -32,10 +32,9 @@ export default function Register() {
         },
     })
 
-    const [loading, setLoading] = useState(false);
-    const [image, setImage] = useState<File | null>(null);
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const router = useRouter();
+    const [loading, setLoading] = useState(false)
+    const [image, setImage] = useState<File | null>(null)
+    const [imagePreview, setImagePreview] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -84,7 +83,7 @@ export default function Register() {
                         }
                     },
                     onSuccess: () => {
-                        router.push("/login");
+                        redirect("/login");
                     }
                 },
             });
@@ -277,6 +276,6 @@ export default function Register() {
                     </div>
                 )}
             </div >
-        ) : router.push('/')
+        ) : redirect('/')
     )
 }
