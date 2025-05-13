@@ -93,8 +93,8 @@ export default function Register() {
     }
 
     return (
-        (isPending == false && session == null) ? (
-            <div className="flex min-h-[60vh] h-full w-full items-center justify-center px-4 mt-10">
+        (isPending == false && session?.session == undefined) ? (
+            <div className="flex min-h-[60vh] h-full w-full items-center justify-center px-4 mt-20">
                 <Card className="mx-auto max-w-md">
                     <CardHeader>
                         <CardTitle className="text-2xl">Inscription</CardTitle>
@@ -276,6 +276,6 @@ export default function Register() {
                     </div>
                 )}
             </div >
-        ) : redirect('/')
+        ) : redirect('/dashboard')
     )
 }

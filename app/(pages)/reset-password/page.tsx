@@ -1,41 +1,27 @@
 'use client'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import Navbar from "@/components/navbar"
 import ResetPasswordForm from '@/components/reset-password-form'
-import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 export default function ResetPassword() {
 
-    const searchParams = useSearchParams();
-    const token = searchParams.get('token');
-
-    if (token) {
-        return (
-            <div className="flex min-h-[50vh] h-full w-full items-center justify-center px-4">
+    return (
+        <>
+            <Navbar />
+            <div className="flex min-h-[50vh] h-full w-full items-center justify-center px-4 mt-20">
                 <Card className="mx-auto max-w-sm">
                     <CardHeader>
                         <CardTitle className="text-2xl">Réinitialisation de mot de passe</CardTitle>
-                        <CardDescription>
-                            Veuillez entrer votre nouveau mot de passe.
-                        </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <ResetPasswordForm token={token} />
+                        <Suspense>
+                            <ResetPasswordForm />
+                        </Suspense>
                     </CardContent>
                 </Card>
             </div>
-        )
-    }
-    return (
-        <div className="flex min-h-[50vh] h-full w-full items-center justify-center px-4">
-            <Card className="mx-auto max-w-sm">
-                <CardHeader>
-                    <CardTitle className="text-2xl">Réinitialisation de mot de passe</CardTitle>
-                    <CardDescription>
-                        Vous n&apos;êtes pas autorisé à accéder à cette page. Veuillez passer par le lien de réinitialisation de mot de passe que vous avez reçu par e-mail.
-                    </CardDescription>
-                </CardHeader>
-            </Card>
-        </div>
+        </>
     )
 }

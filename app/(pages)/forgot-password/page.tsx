@@ -15,9 +15,11 @@ import { redirect } from 'next/navigation'
 
 export default function ForgotPassword() {
     const { data: session, isPending } = authClient.useSession()
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
+
     const form = useForm<z.infer<typeof forgotPassorwSchema>>({
         resolver: zodResolver(forgotPassorwSchema),
         defaultValues: {
@@ -54,9 +56,9 @@ export default function ForgotPassword() {
     }
 
     return (
-        (isPending == false && session == null) ? (
+        (isPending === false && session?.session === undefined) ? (
             (!success) ? (
-                <div className="flex min-h-[40vh] h-full w-full items-center justify-center px-4">
+                <div className="flex min-h-[40vh] h-full w-full items-center justify-center px-4 mt-40">
                     <Card className="mx-auto max-w-sm">
                         <CardHeader>
                             <CardTitle className="text-2xl">Mot de passe oublié</CardTitle>
@@ -110,7 +112,7 @@ export default function ForgotPassword() {
                     </Card>
                 </div>
             ) : (
-                <div className="flex min-h-[50vh] h-full w-full items-center justify-center px-4">
+                <div className="flex min-h-[50vh] h-full w-full items-center justify-center px-4 mt-40">
                     <Card className="mx-auto max-w-sm">
                         <CardHeader>
                             <CardTitle className="text-2xl">Réinitialisation de mot de passe</CardTitle>
@@ -126,6 +128,6 @@ export default function ForgotPassword() {
                     </Card>
                 </div>
             )
-        ) : redirect('/')
+        ) : redirect('/dashboard')
     )
 }

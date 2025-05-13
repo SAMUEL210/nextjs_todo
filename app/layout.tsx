@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
-import { Roboto_Condensed } from "next/font/google";
-import "./globals.css";
-import NavBar from "@/components/navbar";
+import type { Metadata } from "next"
+import { Roboto_Condensed } from "next/font/google"
+import "./globals.css"
 
 const robotoCondensed = Roboto_Condensed({
   weight: ['400', '700'],
@@ -110,9 +109,6 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${robotoCondensed.className}`}>
-        <header className="bg-white shadow-lg">
-          <NavBar />
-        </header>
         {children}
       </body>
     </html>

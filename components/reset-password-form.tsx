@@ -10,19 +10,16 @@ import { resetPasswordSchema } from '@/lib/zod'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { authClient } from '@/lib/auth-client'
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
-interface ResetPasswordFormProps {
-    token: string | null;
-}
+export default function ResetPasswordForm() {
 
-export default function ResetPasswordForm({
-    token,
-}: ResetPasswordFormProps) {
+    const searchParams = useSearchParams();
+    const token = searchParams.get('token');
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
-    const router = useRouter()
 
     const form = useForm<z.infer<typeof resetPasswordSchema>>({
         resolver: zodResolver(resetPasswordSchema),
@@ -42,7 +39,7 @@ export default function ResetPasswordForm({
                         token,
                     }, {
                     onSuccess: () => {
-                        router.push("/login")
+                        redirect("/login")
                     },
                     onError: (ctx) => {
                         if (ctx.error.code == 'INVALID_TOKEN') {
@@ -58,68 +55,76 @@ export default function ResetPasswordForm({
             console.error('Error resetting password', error)
         }
     }
-
-    return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <div className="grid gap-4">
-                    {/* New Password Field */}
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem className="grid gap-2">
-                                <FormLabel htmlFor="password">New Password</FormLabel>
-                                <FormControl>
-                                    <PasswordInput
-                                        id="password"
-                                        placeholder="********"
-                                        autoComplete="new-password"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="confirmPassword"
-                        render={({ field }) => (
-                            <FormItem className="grid gap-2">
-                                <FormLabel htmlFor="confirmPassword">
-                                    Confirm Password
-                                </FormLabel>
-                                <FormControl>
-                                    <PasswordInput
-                                        id="confirmPassword"
-                                        placeholder="********"
-                                        autoComplete="new-password"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button
-                        type="submit"
-                        className="w-full bg-green-800 hover:bg-green-700"
-                        disabled={loading}
-                    >
-                        {loading ? (
-                            <Loader2 size={16} className="animate-spin" />
-                        ) : (
-                            "Réinitialiser le mot de passe"
-                        )}
-                    </Button>
-                </div>
-                {error && (
-                    <div className="text-red-500 text-sm mt-2">
-                        {error}
+    if (token) {
+        return (
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <div className="grid gap-4">
+                        {/* New Password Field */}
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem className="grid gap-2">
+                                    <FormLabel htmlFor="password">New Password</FormLabel>
+                                    <FormControl>
+                                        <PasswordInput
+                                            id="password"
+                                            placeholder="********"
+                                            autoComplete="new-password"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="confirmPassword"
+                            render={({ field }) => (
+                                <FormItem className="grid gap-2">
+                                    <FormLabel htmlFor="confirmPassword">
+                                        Confirm Password
+                                    </FormLabel>
+                                    <FormControl>
+                                        <PasswordInput
+                                            id="confirmPassword"
+                                            placeholder="********"
+                                            autoComplete="new-password"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button
+                            type="submit"
+                            className="w-full bg-green-800 hover:bg-green-700"
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <Loader2 size={16} className="animate-spin" />
+                            ) : (
+                                "Réinitialiser le mot de passe"
+                            )}
+                        </Button>
                     </div>
-                )}
-            </form>
-        </Form>
+                    {error && (
+                        <div className="text-red-500 text-sm mt-2">
+                            {error}
+                        </div>
+                    )}
+                </form>
+            </Form>
+        )
+    }
+    return (
+        <div className="flex w-full items-center justify-center px-4 text-red-500">
+            <span>
+                Vous n&apos;êtes pas autorisé à accéder à cette page. Veuillez passer par le lien de réinitialisation de mot de passe que vous avez reçu par e-mail.
+            </span>
+        </div>
     )
 };
