@@ -55,8 +55,8 @@ export default function ForgotPassword() {
         }
     }
 
-    return (
-        (isPending === false && session?.session === undefined) ? (
+    if (isPending == false && session?.session == undefined) {
+        return (
             (!success) ? (
                 <div className="flex min-h-[40vh] h-full w-full items-center justify-center px-4 mt-40">
                     <Card className="mx-auto max-w-sm">
@@ -128,6 +128,8 @@ export default function ForgotPassword() {
                     </Card>
                 </div>
             )
-        ) : redirect('/dashboard')
-    )
+        )
+    }
+
+    return (redirect('/dashboard'))
 }

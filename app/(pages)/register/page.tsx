@@ -92,8 +92,9 @@ export default function Register() {
         }
     }
 
-    return (
-        (isPending == false && session?.session == undefined) ? (
+
+    if (isPending == false && session?.session == undefined) {
+        return (
             <div className="flex min-h-[60vh] h-full w-full items-center justify-center px-4 mt-20">
                 <Card className="mx-auto max-w-md">
                     <CardHeader>
@@ -276,6 +277,7 @@ export default function Register() {
                     </div>
                 )}
             </div >
-        ) : redirect('/dashboard')
-    )
+        )
+    }
+    return (redirect('/dashboard'))
 }
