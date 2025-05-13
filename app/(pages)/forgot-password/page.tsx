@@ -55,81 +55,83 @@ export default function ForgotPassword() {
         }
     }
 
-    if (isPending == false && session?.session == undefined) {
-        return (
-            (!success) ? (
-                <div className="flex min-h-[40vh] h-full w-full items-center justify-center px-4 mt-40">
-                    <Card className="mx-auto max-w-sm">
-                        <CardHeader>
-                            <CardTitle className="text-2xl">Mot de passe oublié</CardTitle>
-                            <CardDescription>
-                                Veuillez saisir votre adresse e-mail pour recevoir un lien de réinitialisation de mot de passe.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                                    <div className="grid gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="email"
-                                            render={({ field }) => (
-                                                <FormItem className="grid gap-2">
-                                                    <FormLabel htmlFor="email">Email</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            id="email"
-                                                            placeholder="johndoe@mail.com"
-                                                            type="email"
-                                                            autoComplete="email"
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <Button
-                                            type="submit"
-                                            className="w-full bg-green-800 hover:bg-green-700"
-                                            disabled={loading}
-                                        >
-                                            {loading ? (
-                                                <Loader2 size={16} className="animate-spin" />
-                                            ) : (
-                                                "Envoyer le lien de réinitialisation"
-                                            )}
-                                        </Button>
-                                    </div>
-                                    {error && (
-                                        <div className="text-red-500 text-sm mt-2">
-                                            {error}
+    if (!isPending) {
+        if (!session?.session) {
+            return (
+                (!success) ? (
+                    <div className="flex min-h-[40vh] h-full w-full items-center justify-center px-4 mt-40">
+                        <Card className="mx-auto max-w-sm">
+                            <CardHeader>
+                                <CardTitle className="text-2xl">Mot de passe oublié</CardTitle>
+                                <CardDescription>
+                                    Veuillez saisir votre adresse e-mail pour recevoir un lien de réinitialisation de mot de passe.
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Form {...form}>
+                                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                                        <div className="grid gap-4">
+                                            <FormField
+                                                control={form.control}
+                                                name="email"
+                                                render={({ field }) => (
+                                                    <FormItem className="grid gap-2">
+                                                        <FormLabel htmlFor="email">Email</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                id="email"
+                                                                placeholder="johndoe@mail.com"
+                                                                type="email"
+                                                                autoComplete="email"
+                                                                {...field}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <Button
+                                                type="submit"
+                                                className="w-full bg-green-800 hover:bg-green-700"
+                                                disabled={loading}
+                                            >
+                                                {loading ? (
+                                                    <Loader2 size={16} className="animate-spin" />
+                                                ) : (
+                                                    "Envoyer le lien de réinitialisation"
+                                                )}
+                                            </Button>
                                         </div>
-                                    )}
-                                </form>
-                            </Form>
-                        </CardContent>
-                    </Card>
-                </div>
-            ) : (
-                <div className="flex min-h-[50vh] h-full w-full items-center justify-center px-4 mt-40">
-                    <Card className="mx-auto max-w-sm">
-                        <CardHeader>
-                            <CardTitle className="text-2xl">Réinitialisation de mot de passe</CardTitle>
-                            <CardDescription>
-                                Un email de réinitialisation de mot de passe a été envoyé à votre adresse e-mail si un compte existe avec cette adresse mail.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-center text-sm">
-                                Veuillez vérifier votre boîte de réception et suivre les instructions pour réinitialiser votre mot de passe.
-                            </p>
-                        </CardContent>
-                    </Card>
-                </div>
+                                        {error && (
+                                            <div className="text-red-500 text-sm mt-2">
+                                                {error}
+                                            </div>
+                                        )}
+                                    </form>
+                                </Form>
+                            </CardContent>
+                        </Card>
+                    </div>
+                ) : (
+                    <div className="flex min-h-[50vh] h-full w-full items-center justify-center px-4 mt-40">
+                        <Card className="mx-auto max-w-sm">
+                            <CardHeader>
+                                <CardTitle className="text-2xl">Réinitialisation de mot de passe</CardTitle>
+                                <CardDescription>
+                                    Un email de réinitialisation de mot de passe a été envoyé à votre adresse e-mail si un compte existe avec cette adresse mail.
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-center text-sm">
+                                    Veuillez vérifier votre boîte de réception et suivre les instructions pour réinitialiser votre mot de passe.
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+                )
             )
-        )
+        }
+        return (redirect('/dashboard'))
     }
-
-    return (redirect('/dashboard'))
+    return null
 }

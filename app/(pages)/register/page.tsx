@@ -93,191 +93,194 @@ export default function Register() {
     }
 
 
-    if (isPending == false && session?.session == undefined) {
-        return (
-            <div className="flex min-h-[60vh] h-full w-full items-center justify-center px-4 mt-20">
-                <Card className="mx-auto max-w-md">
-                    <CardHeader>
-                        <CardTitle className="text-2xl">Inscription</CardTitle>
-                        <CardDescription>
-                            Veuillez remplir le formulaire ci-dessous pour vous inscrire.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-                                <div className="grid grid-cols-12 gap-2 my-2">
-                                    <div className='col-span-6'>
-                                        <FormField
-                                            control={form.control}
-                                            name="firstName"
-                                            render={({ field }) => (
-                                                <FormItem className="grid gap-2">
-                                                    <FormLabel htmlFor="firstName">Prénom</FormLabel>
-                                                    <FormControl>
-                                                        <Input id="firstName" placeholder="Jean Pierre" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </div>
-                                    <div className='col-span-6'>
-                                        <FormField
-                                            control={form.control}
-                                            name="lastName"
-                                            render={({ field }) => (
-                                                <FormItem className="grid gap-2">
-                                                    <FormLabel htmlFor="lastName">Nom</FormLabel>
-                                                    <FormControl>
-                                                        <Input id="lastName" placeholder="Dupont" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </div>
-                                </div>
-                                <FormField
-                                    control={form.control}
-                                    name="email"
-                                    render={({ field }) => (
-                                        <FormItem className="grid gap-2">
-                                            <FormLabel htmlFor="email">Email</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    id="email"
-                                                    placeholder="jp.dupont@exemple.com"
-                                                    type="email"
-                                                    autoComplete="email"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                {/*<FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                                <FormItem className="grid gap-2">
-                                    <FormLabel htmlFor="phone">N° Téléphone</FormLabel>
-                                    <FormControl>
-                                        <PhoneInput {...field} defaultCountry="FR" />
-
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />*/}
-                                <div className="grid grid-cols-12 gap-2 my-2">
-                                    <div className='col-span-6'>
-                                        {/* Password Field */}
-                                        <FormField
-                                            control={form.control}
-                                            name="password"
-                                            render={({ field }) => (
-                                                <FormItem className="grid gap-2">
-                                                    <FormLabel htmlFor="password">Mot de passe</FormLabel>
-                                                    <FormControl>
-                                                        <PasswordInput
-                                                            id="password"
-                                                            placeholder="********"
-                                                            autoComplete="new-password"
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </div>
-                                    <div className='col-span-6'>
-                                        <FormField
-                                            control={form.control}
-                                            name="confirmPassword"
-                                            render={({ field }) => (
-                                                <FormItem className="grid gap-2">
-                                                    <FormLabel htmlFor="confirmPassword">
-                                                        Confirmer Mot de passe
-                                                    </FormLabel>
-                                                    <FormControl>
-                                                        <PasswordInput
-                                                            id="confirmPassword"
-                                                            placeholder="********"
-                                                            autoComplete="new-password"
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-2 w-full border border-gray-300 rounded-md p-2">
-                                    <div>
-                                        <label htmlFor="#" className="text-sm">Photo de profil</label>
-                                    </div>
-                                    <div className='flex flex-row items-center gap-2'>
-                                        {imagePreview && (
-                                            <div className="relative w-16 h-16 rounded-full overflow-hidden">
-                                                <Image
-                                                    src={imagePreview}
-                                                    alt="Profile preview"
-                                                    layout="fill"
-                                                    objectFit="cover"
-                                                />
-                                            </div>
-                                        )}
-                                        <Input
-                                            id="image"
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={handleImageChange}
-                                            className="w-full"
-                                        />
-                                        {imagePreview && (
-                                            <X
-                                                className="cursor-pointer"
-                                                onClick={() => {
-                                                    setImage(null);
-                                                    setImagePreview(null);
-                                                }}
+    if (!isPending) {
+        if (!session?.session) {
+            return (
+                <div className="flex min-h-[60vh] h-full w-full items-center justify-center px-4 mt-20">
+                    <Card className="mx-auto max-w-md">
+                        <CardHeader>
+                            <CardTitle className="text-2xl">Inscription</CardTitle>
+                            <CardDescription>
+                                Veuillez remplir le formulaire ci-dessous pour vous inscrire.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <Form {...form}>
+                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+                                    <div className="grid grid-cols-12 gap-2 my-2">
+                                        <div className='col-span-6'>
+                                            <FormField
+                                                control={form.control}
+                                                name="firstName"
+                                                render={({ field }) => (
+                                                    <FormItem className="grid gap-2">
+                                                        <FormLabel htmlFor="firstName">Prénom</FormLabel>
+                                                        <FormControl>
+                                                            <Input id="firstName" placeholder="Jean Pierre" {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
                                             />
+                                        </div>
+                                        <div className='col-span-6'>
+                                            <FormField
+                                                control={form.control}
+                                                name="lastName"
+                                                render={({ field }) => (
+                                                    <FormItem className="grid gap-2">
+                                                        <FormLabel htmlFor="lastName">Nom</FormLabel>
+                                                        <FormControl>
+                                                            <Input id="lastName" placeholder="Dupont" {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                    </div>
+                                    <FormField
+                                        control={form.control}
+                                        name="email"
+                                        render={({ field }) => (
+                                            <FormItem className="grid gap-2">
+                                                <FormLabel htmlFor="email">Email</FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        id="email"
+                                                        placeholder="jp.dupont@exemple.com"
+                                                        type="email"
+                                                        autoComplete="email"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
                                         )}
+                                    />
+                                    {/*<FormField
+                                control={form.control}
+                                name="phone"
+                                render={({ field }) => (
+                                    <FormItem className="grid gap-2">
+                                        <FormLabel htmlFor="phone">N° Téléphone</FormLabel>
+                                        <FormControl>
+                                            <PhoneInput {...field} defaultCountry="FR" />
+    
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />*/}
+                                    <div className="grid grid-cols-12 gap-2 my-2">
+                                        <div className='col-span-6'>
+                                            {/* Password Field */}
+                                            <FormField
+                                                control={form.control}
+                                                name="password"
+                                                render={({ field }) => (
+                                                    <FormItem className="grid gap-2">
+                                                        <FormLabel htmlFor="password">Mot de passe</FormLabel>
+                                                        <FormControl>
+                                                            <PasswordInput
+                                                                id="password"
+                                                                placeholder="********"
+                                                                autoComplete="new-password"
+                                                                {...field}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                        <div className='col-span-6'>
+                                            <FormField
+                                                control={form.control}
+                                                name="confirmPassword"
+                                                render={({ field }) => (
+                                                    <FormItem className="grid gap-2">
+                                                        <FormLabel htmlFor="confirmPassword">
+                                                            Confirmer Mot de passe
+                                                        </FormLabel>
+                                                        <FormControl>
+                                                            <PasswordInput
+                                                                id="confirmPassword"
+                                                                placeholder="********"
+                                                                autoComplete="new-password"
+                                                                {...field}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
                                     </div>
 
-                                </div>
-                                <Button type="submit" className="w-full bg-green-800 hover:bg-green-700" disabled={loading} >
-                                    {loading ? (
-                                        <Loader2 size={16} className="animate-spin" />
-                                    ) : (
-                                        "Créer un compte"
-                                    )}
-                                </Button>
-                            </form>
-                        </Form>
-                        <div className="mt-4 text-center text-sm">
-                            Déjà un compte?{' '}
-                            <Link href="/login" className="underline">
-                                Se connecter
-                            </Link>
-                        </div>
+                                    <div className="flex flex-col gap-2 w-full border border-gray-300 rounded-md p-2">
+                                        <div>
+                                            <label htmlFor="#" className="text-sm">Photo de profil</label>
+                                        </div>
+                                        <div className='flex flex-row items-center gap-2'>
+                                            {imagePreview && (
+                                                <div className="relative w-16 h-16 rounded-full overflow-hidden">
+                                                    <Image
+                                                        src={imagePreview}
+                                                        alt="Profile preview"
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                    />
+                                                </div>
+                                            )}
+                                            <Input
+                                                id="image"
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleImageChange}
+                                                className="w-full"
+                                            />
+                                            {imagePreview && (
+                                                <X
+                                                    className="cursor-pointer"
+                                                    onClick={() => {
+                                                        setImage(null);
+                                                        setImagePreview(null);
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
 
-                    </CardContent>
-                </Card>
-                {error && (
-                    <div className="mt-4 text-red-500 text-sm mx-auto max-w-md">
-                        <div className="flex flex-row items-center gap-2">
-                            <AlertTriangle /> {errorMessage}
+                                    </div>
+                                    <Button type="submit" className="w-full bg-green-800 hover:bg-green-700" disabled={loading} >
+                                        {loading ? (
+                                            <Loader2 size={16} className="animate-spin" />
+                                        ) : (
+                                            "Créer un compte"
+                                        )}
+                                    </Button>
+                                </form>
+                            </Form>
+                            <div className="mt-4 text-center text-sm">
+                                Déjà un compte?{' '}
+                                <Link href="/login" className="underline">
+                                    Se connecter
+                                </Link>
+                            </div>
+
+                        </CardContent>
+                    </Card>
+                    {error && (
+                        <div className="mt-4 text-red-500 text-sm mx-auto max-w-md">
+                            <div className="flex flex-row items-center gap-2">
+                                <AlertTriangle /> {errorMessage}
+                            </div>
                         </div>
-                    </div>
-                )}
-            </div >
-        )
+                    )}
+                </div >
+            )
+        }
+        return (redirect('/dashboard'))
     }
-    return (redirect('/dashboard'))
+    return null
 }
