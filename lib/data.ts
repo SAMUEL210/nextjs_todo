@@ -12,3 +12,10 @@ export const states =  [
     description: "Liste de vos tâches que vous avez déjà accomplie"
   }
 ]
+
+export const menuItems = [
+  { name: 'Features', href: '#link' },
+  { name: 'Solution', href: '#link' },
+  { name: 'Prix', href: '#link' },
+  { name: 'A Propos', href: '#link' },
+]

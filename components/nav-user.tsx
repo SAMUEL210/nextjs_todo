@@ -22,12 +22,6 @@ export default function NavUser({ user }: {
                         <AvatarImage src={user.avatar} alt={user.name} />
                         <AvatarFallback className="rounded-lg">{user.name.split(' ')[0].charAt(0).toLocaleUpperCase() + user.name.split(' ')[1].charAt(0).toLocaleUpperCase()}</AvatarFallback>
                     </Avatar>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-medium">{user.name}</span>
-                        <span className="truncate text-xs text-muted-foreground">
-                            {user.email}
-                        </span>
-                    </div>
                     <MoreVerticalIcon className="ml-auto size-4" />
                 </Button>
             </DropdownMenuTrigger>
