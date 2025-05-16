@@ -81,7 +81,7 @@ export default function TodoForm({
                 />
                 <Button
                     disabled={isSubmitting}
-                    className="w-full relative"
+                    className="w-full relative bg-green-800 hover:bg-green-600"
                     type="submit"
 
                 >

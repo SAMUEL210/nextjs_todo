@@ -1,7 +1,7 @@
 "use client"
-import { LogOutIcon, MoreVerticalIcon, UserCircleIcon } from "lucide-react"
+import { LogOutIcon, MoreVerticalIcon } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from "./ui/button";
 import { authClient } from "@/lib/auth-client"
 
@@ -46,13 +46,13 @@ export default function NavUser({ user }: {
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuGroup>
+                {/*<DropdownMenuGroup>
                     <DropdownMenuItem>
                         <UserCircleIcon />
                         Account
                     </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
+                    <DropdownMenuSeparator />
+                </DropdownMenuGroup>*/}
                 <DropdownMenuItem onClick={async () => {
                     await authClient.signOut();
                 }}>
